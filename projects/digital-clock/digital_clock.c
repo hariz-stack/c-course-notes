@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <time.h>
+
+int main(void) {
+	while (1) {
+		time_t now = time(NULL);
+		struct tm *t = localtime(&now);
+
+		printf("\r%02d:%02d:%02d", t->tm_hour, t->tm_min, t->tm_sec);
+		fflush(stdout);
+
+		// simple 1 second delay (busy-wait)
+		time_t end = now + 1;
+		while (time(NULL) < end) { }
+	}
+}
